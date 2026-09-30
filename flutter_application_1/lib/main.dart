@@ -38,6 +38,10 @@ class StorePage extends StatelessWidget {
               background: FlutterLogo(),
             ),
           ),
+          SliverToBoxAdapter(
+            child:SizedBox(height: 10,) ,
+          ),
+
 
           SliverPersistentHeader(
             pinned: true,
@@ -45,7 +49,7 @@ class StorePage extends StatelessWidget {
           ),
 
           SliverPadding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
