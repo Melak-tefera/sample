@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
- HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -19,18 +18,21 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: const Text('Products'),
-              background: Image.network('https://flutter.github.io/assets-for-api-docs/assets/widgets/purple.gif',
-                fit: BoxFit.cover,
+              background: Container(
+                color: Colors.blue.shade100,
+                child: const Icon(
+                  Icons.shopping_bag,
+                  size: 100,
+                  color: Colors.blue,
+                ),
               ),
-              
+              centerTitle: true,
             ),
           ),
-
           SliverPersistentHeader(
             pinned: true,
             delegate: CategoryHeaderDelegate(),
           ),
-
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -39,9 +41,7 @@ class _HomePageState extends State<HomePage> {
                     child: Text('${index + 1}'),
                   ),
                   title: Text('Product ${index + 1}'),
-                  subtitle: const Text(
-                    'Product description',
-                  ),
+                  subtitle: const Text('Product description'),
                 );
               },
               childCount: 30,
@@ -49,14 +49,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-    
     );
   }
 }
 
-class CategoryHeaderDelegate
-    extends SliverPersistentHeaderDelegate {
-
+class CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get minExtent => 20;
 
@@ -85,9 +82,7 @@ class CategoryHeaderDelegate
   }
 
   @override
-  bool shouldRebuild(
-    covariant CategoryHeaderDelegate oldDelegate,
-  ) {
+  bool shouldRebuild(covariant CategoryHeaderDelegate oldDelegate) {
     return false;
   }
 }
