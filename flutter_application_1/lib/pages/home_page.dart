@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:lottie/lottie.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
         slivers: [
           
           SliverAppBar(
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.red,
             expandedHeight: 250,
             toolbarHeight: 70,
             centerTitle: false,
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 children: [
-                  Container(color: Colors.grey),
+                  Container(child: Lottie.asset("assets/ride.json"),),
                   const Positioned(
                     left: 16,
                     bottom: 16,
