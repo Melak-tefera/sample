@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const StorePage(),
+      home: const ProductPage(),
     );
   }
 }
 
-class StorePage extends StatelessWidget {
-  const StorePage({super.key});
+class ProductPage extends StatelessWidget {
+  const ProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,80 +34,30 @@ class StorePage extends StatelessWidget {
             expandedHeight: 250,
             pinned: true,
             flexibleSpace: const FlexibleSpaceBar(
-              title: Text('My Store'),
+              title: Text('Products'),
               background: FlutterLogo(),
             ),
           ),
-          SliverToBoxAdapter(
-            child:SizedBox(height: 10,) ,
-          ),
-
 
           SliverPersistentHeader(
             pinned: true,
-            delegate: CategoryDelegate(),
+            delegate: CategoryHeaderDelegate(),
           ),
 
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            sliver: SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Card(
-                    child: Center(
-                      child: Text(
-                        'Product ${index + 1}',
-                      ),
-                    ),
-                  );
-                },
-                childCount: 8,
-              ),
-              gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 1,
-              ),
-            ),
-          ),
-
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                'Recommended',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall,
-              ),
-            ),
-          ),
-
-          SliverFixedExtentList(
-            itemExtent: 72,
+          SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return ListTile(
                   leading: CircleAvatar(
                     child: Text('${index + 1}'),
                   ),
-                  title: Text(
-                    'Recommended Item ${index + 1}',
+                  title: Text('Product ${index + 1}'),
+                  subtitle: const Text(
+                    'Product description',
                   ),
                 );
               },
-              childCount: 10,
-            ),
-          ),
-
-          const SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(
-              child: Text(
-                'End of Store',
-              ),
+              childCount: 30,
             ),
           ),
         ],
@@ -116,14 +66,14 @@ class StorePage extends StatelessWidget {
   }
 }
 
-class CategoryDelegate
+class CategoryHeaderDelegate
     extends SliverPersistentHeaderDelegate {
 
   @override
-  double get minExtent => 56;
+  double get minExtent => 20;
 
   @override
-  double get maxExtent => 56;
+  double get maxExtent => 60;
 
   @override
   Widget build(
@@ -134,28 +84,21 @@ class CategoryDelegate
     return Material(
       elevation: overlapsContent ? 4 : 0,
       color: Theme.of(context).colorScheme.surface,
-      child: const SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            SizedBox(width: 16),
-            Chip(label: Text('All')),
-            SizedBox(width: 8),
-            Chip(label: Text('Phones')),
-            SizedBox(width: 8),
-            Chip(label: Text('Laptops')),
-            SizedBox(width: 8),
-            Chip(label: Text('Shoes')),
-            SizedBox(width: 16),
-          ],
-        ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('All'),
+          Text('Popular'),
+          Text('New'),
+          Text('Sale'),
+        ],
       ),
     );
   }
 
   @override
   bool shouldRebuild(
-    covariant CategoryDelegate oldDelegate,
+    covariant CategoryHeaderDelegate oldDelegate,
   ) {
     return false;
   }
