@@ -18,9 +18,20 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.grey,
             expandedHeight: 250,
             toolbarHeight: 70,
-            title: const Text('Products'),
             centerTitle: false,
             pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                children: [
+                  Container(color: Colors.grey),
+                  const Positioned(
+                    left: 16,
+                    bottom: 16,
+                    child: Text('Products'),
+                  ),
+                ],
+              ),
+            ),
             //floating: true,
             //snap: true,
             
@@ -63,7 +74,7 @@ class CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    final progress = shrinkOffset / (maxExtent - minExtent);
+    
     final currentHeight = maxExtent - (shrinkOffset.clamp(0, maxExtent - minExtent));
     return Material(
       elevation: overlapsContent ? 4 : 0,
