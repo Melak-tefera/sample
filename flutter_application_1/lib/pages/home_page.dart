@@ -13,26 +13,23 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          
           SliverAppBar(
+            backgroundColor: Colors.grey,
             expandedHeight: 250,
+            toolbarHeight: 70,
+            title: const Text('Products'),
+            centerTitle: false,
             pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text('Products'),
-              background: Container(
-                color: Colors.blue.shade100,
-                child: const Icon(
-                  Icons.shopping_bag,
-                  size: 100,
-                  color: Colors.blue,
-                ),
-              ),
-              centerTitle: true,
-            ),
+            //floating: true,
+            //snap: true,
+            
           ),
           SliverPersistentHeader(
             pinned: true,
             delegate: CategoryHeaderDelegate(),
           ),
+
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -44,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                   subtitle: const Text('Product description'),
                 );
               },
-              childCount: 30,
+              childCount: 70,
             ),
           ),
         ],
@@ -55,10 +52,10 @@ class _HomePageState extends State<HomePage> {
 
 class CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
-  double get minExtent => 20;
+  double get minExtent => 60;
 
   @override
-  double get maxExtent => 60;
+  double get maxExtent => 120;
 
   @override
   Widget build(
@@ -66,17 +63,22 @@ class CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
+    final progress = shrinkOffset / (maxExtent - minExtent);
+    final currentHeight = maxExtent - (shrinkOffset.clamp(0, maxExtent - minExtent));
     return Material(
       elevation: overlapsContent ? 4 : 0,
       color: Theme.of(context).colorScheme.surface,
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text('All'),
-          Text('Popular'),
-          Text('New'),
-          Text('Sale'),
-        ],
+      child: SizedBox(
+        height: currentHeight,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('All'),
+            Text('Popular'),
+            Text('New'),
+            Text('Sale'),
+          ],
+        ),
       ),
     );
   }
