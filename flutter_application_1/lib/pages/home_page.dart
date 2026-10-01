@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-const HomePage({super.key});
+ HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,9 +17,12 @@ class _HomePageState extends State<HomePage> {
           SliverAppBar(
             expandedHeight: 250,
             pinned: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text('Products'),
-              background: FlutterLogo(),
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text('Products'),
+              background: Image.network('https://flutter.github.io/assets-for-api-docs/assets/widgets/purple.gif',
+                fit: BoxFit.cover,
+              ),
+              
             ),
           ),
 
